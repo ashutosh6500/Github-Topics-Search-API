@@ -55,9 +55,13 @@ public class GithubRepoService {
         return null;
     }
     //delete repository
-    public void deleteRepo(String userId,String repoId){
-
-
+    public void deleteRepo(GithubRepository githubRepository){
+        Person p = githubRepository.getUsers().iterator().next();
+        for(GithubRepository g : p.getRepos()){
+            if(g.getRepoId().equals(githubRepository.getRepoId())){
+                p.getRepos().remove(g);
+            }
+        }
     }
     //get repositories for topics
     public List<GithubRepository> getReposBasedonTopics(APIResponse apiResponse) throws IOException {

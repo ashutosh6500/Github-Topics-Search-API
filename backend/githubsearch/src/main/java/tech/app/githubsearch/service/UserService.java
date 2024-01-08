@@ -1,5 +1,6 @@
 package tech.app.githubsearch.service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tech.app.githubsearch.models.*;
 import tech.app.githubsearch.repository.*;
