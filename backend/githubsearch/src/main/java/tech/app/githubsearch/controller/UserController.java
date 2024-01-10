@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import tech.app.githubsearch.models.Person;
 import tech.app.githubsearch.repository.UserRepository;
 import tech.app.githubsearch.service.UserService;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 @RestController
 public class UserController {
     @Autowired
