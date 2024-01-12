@@ -1,0 +1,19 @@
+<div class="container">
+<mat-toolbar color="primary" class="nav-bar">
+    <img src="./assets/images/image.png">
+    <span class="title"><h1>GithubSearch</h1></span><br>
+    <span>&nbsp;&nbsp;&nbsp;</span>
+
+    <div class="options">
+        
+        <a *ngIf="globals.register" [routerLink]="['/signup']" mat-button class="text"><h2>Register</h2></a>
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        <a *ngIf="globals.login" [routerLink]="['/']" mat-button class="text"><h2>Login</h2></a>
+        <span>&nbsp;&nbsp;&nbsp;</span>
+
+        <a *ngIf="globals.logout" mat-button class="text"><h2>Logout</h2></a>
+
+    
+     </div>
+   </mat-toolbar>
+</div>

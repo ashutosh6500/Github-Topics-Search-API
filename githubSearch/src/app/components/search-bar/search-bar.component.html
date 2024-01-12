@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="search-bar">
+    <form class="example" style="max-width:300px">
+      <input type="text" placeholder="Search.. java,python," name="search2">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    
+    </form>    
+    <br>
+    <br>
+    <div class="dropdown">
+      <label for="option-names">Sort By </label> 
+      <select [(ngModel)]="sortBy" name="option-names" id="option-names" class="dropdown"> 
+        <option value="stars">Most Stars</option> 
+          <option value="forks">Most Forks</option> 
+          <option value="time">Recently Updated</option> 
+      </select>
+    
+  
+    </div>
+   
+  </div>
+</body>
+</html>
+

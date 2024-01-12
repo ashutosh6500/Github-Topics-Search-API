@@ -26,7 +26,7 @@ public class UserController {
             if(person.getUserId().equals(p.getUserId())){
                 map.put("status",0);
                 map.put("msg","User with given ID already exist!");
-                return  new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);
+                return  new ResponseEntity<>(map,HttpStatus.CONFLICT);
             }
         }
         userService.savePerson(p);

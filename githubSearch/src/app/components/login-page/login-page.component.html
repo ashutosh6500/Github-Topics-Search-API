@@ -1,1 +1,19 @@
-<p>login-page works!</p>
+<div class="container">
+    <form>
+        <h1>Login </h1>
+        <div class="input">
+            <input type="text" required />
+            <label>Email</label>
+        </div>
+        <div class="input box">
+            <input type="password" required />
+            <label>Password</label>
+            <div class="forgot"><a [routerLink]="['/forgotpassword']"><h3>Forgot Password?</h3></a></div>
+        </div>
+        <input class="L_btn" type="submit" value="Login" (click)="login()" />
+    </form >
+    <div class="div">
+        <div class="line"></div>
+        <div class="signup">Don't Have an account? <a [routerLink]="['/signup']">Sign Up</a></div>
+    </div>
+</div>

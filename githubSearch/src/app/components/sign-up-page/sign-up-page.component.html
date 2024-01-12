@@ -1,0 +1,23 @@
+
+<div class="container">
+    <form>
+        <h1>Sign Up </h1>
+        <div class="input">
+            <input type="text" [(ngModel)]="userId" name="userId" required />
+            <label>Email</label>
+        </div>
+        <div class="input box">
+            <input type="password" [(ngModel)]="password" name="email" required />
+            <label>Password</label>
+        </div>
+        <input class="L_btn" type="submit" value="Register" (click)="register()" />
+        
+    </form >
+    Or Sign Up With
+    <br>
+    <div class="div">
+       <a>
+        Google
+       </a>
+    </div>
+</div>
