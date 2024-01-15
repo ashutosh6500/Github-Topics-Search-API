@@ -11,9 +11,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@RequestMapping("/api")
-@CrossOrigin(origins = "*")
+
 @RestController
+@CrossOrigin(origins = "*")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -37,6 +37,7 @@ public class UserController {
     @GetMapping("/getUsers")
     public ResponseEntity<?> getUsers(){
         List<Person> personList= userService.getPerson();
+
         Map<String,Object> map = new LinkedHashMap<>();
         if(personList.size() == 0){
             map.put("status",1);
@@ -46,6 +47,22 @@ public class UserController {
         map.put("status",1);
         map.put("data",personList);
         return new ResponseEntity<>(map,HttpStatus.OK);
+
+         //return new ResponseEntity<>(personList,HttpStatus.OK);
+    }
+    @GetMapping("/checkUser/{email}/{password}")
+    public ResponseEntity<?> checkUser(@PathVariable String email,@PathVariable String password){
+        Map<String,Object> map = new LinkedHashMap<>();
+
+        try {
+            return userService.checkUser(email,password);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        map.put("status",1);
+        map.put("msg","Error!");
+        return new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);
     }
 
 }

@@ -24,6 +24,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Globals } from './globals';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     RouterModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
+    ClipboardModule,
     MatPaginatorModule
   ],
   providers: [UserService,RepositoryService,Globals],

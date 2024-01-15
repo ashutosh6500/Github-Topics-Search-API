@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GithubRepository } from 'src/app/entities/GithubRepo';
@@ -17,7 +18,7 @@ export class SignUpPageComponent {
   user : any;
   message :any;
   emptyPassword : boolean= false;
-
+  
   validateForm(){
     console.log("called");
 
@@ -32,6 +33,14 @@ export class SignUpPageComponent {
   }
   constructor(private service:UserService,private router : Router){
 
+  }
+  public getUsers() : void{
+    this.service.getUser().subscribe(
+      (response : User[]) => {
+        this.user = response;
+        console.log("user are",this.user);
+      }
+    );
   }
   public register(){
   //add code for checking password constraints

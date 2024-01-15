@@ -64,12 +64,12 @@ public class GithubRepoService {
         }
     }
     //get repositories for topics
-    public List<GithubRepository> getReposBasedonTopics(APIResponse apiResponse) throws IOException {
+    public List<GithubRepository> getReposBasedonTopics(String sortBy,List<String> topic_list1) throws IOException {
         List<GithubRepository> repos = new ArrayList<>();
         //https://api.github.com/search/repositories?q=topic:java+topic:azure+topic:aws+topic:python
         StringBuilder url = new StringBuilder("https://api.github.com/search/repositories?q=");
         int index= 0;
-        List<String> topics = apiResponse.getTopics();
+        List<String> topics = topic_list1;
         for(String topic:topics){
             url.append("topic:"+topic);
             if(index <topics.size()-1)
@@ -110,6 +110,8 @@ public class GithubRepoService {
                         githubRepository.setForkCount(Long.parseLong(mp.get("forks_count").toString()));
                         //setting recent updated time
                         githubRepository.setRecentupdateTime(mp.get("updated_at").toString());
+                        //setting name
+                        githubRepository.setName(mp.get("name").toString());
                         repos.add(githubRepository);
                     }
                     catch (Exception exception){
@@ -118,11 +120,11 @@ public class GithubRepoService {
                 }
             }
         }
-        if(apiResponse.getSortBy().equals("fork_count"))
+        if(sortBy.equals("fork_count"))
             Collections.sort(repos,new CustomSortingBasedonForks());
-        else if(apiResponse.getSortBy().equals("star_count"))
+        else if(sortBy.equals("star_count"))
             Collections.sort(repos,new CustomSortingBasedonStars());
-        else if(apiResponse.getSortBy().equals("updatedTime"))
+        else if(sortBy.equals("updatedTime"))
             Collections.sort(repos,new CustomSortingBasedonUpdatedTime());
 
         return repos;

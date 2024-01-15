@@ -1,0 +1,63 @@
+.container-fluid{
+    width: 40%;
+    background-color: whitesmoke;
+    margin-left: auto;
+    margin-right: auto;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  .repository-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  img {
+    width: fit-content;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  .repository-description {
+    max-width: 600px;
+    margin-bottom: 20px;
+  }
+  .repository-topics {
+    font-style: italic;
+    color: #666;
+  }
+  textarea {
+    width: 300px;
+    height: 25px;
+  }
+  .btn-primary{
+    font-size: larger;
+    color: white;
+  }
+  .link{
+    color: white;
+  }
+  .sepLine{
+    color: whitesmoke;
+    width: 70%;
+  }
+  .sepLine1{
+    color: whitesmoke;
+    width: 100%;
+  }
+#id1{
+    display: inline;
+}
+.icons1{
+    align-self: flex-end;
+    position: absolute;
+   
+}
+.icons2{
+    align-self: flex-start;
+    position: absolute;
+   
+}
+ 

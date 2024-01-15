@@ -13,8 +13,16 @@ export class LoginPageComponent {
   password : string ="";
   constructor(private userservice : UserService,private router : Router,private globals : Globals){}
   login(){
-    //pending code
-    //on successfull login
+    if(this.userId == ""){
+      alert("Enter Email Id");
+      return;
+    }
+    if(this.password == ""){
+      alert("Enter Password");
+      return;
+    }
+    //validate in backend
+    
     this.globals.login = true;
     this.globals.register = false;
     this.router.navigate(['/GithubSearchEngine']);

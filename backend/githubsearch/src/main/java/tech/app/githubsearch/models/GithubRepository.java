@@ -10,6 +10,7 @@ import java.util.Set;
 public class GithubRepository {
     @Id
     private String repoId;
+    private String name;
     private long stargazersCount;
     private long forkCount;
     private String recentupdateTime;
@@ -19,8 +20,9 @@ public class GithubRepository {
     private List<String> topicList;
 
 
-    public GithubRepository(String repoId, long stargazersCount, long forkCount, String recentupdateTime, String projectUrl, String description, String cloneUrl, List<String> topicList, Set<Person> users) {
+    public GithubRepository(String name,String repoId, long stargazersCount, long forkCount, String recentupdateTime, String projectUrl, String description, String cloneUrl, List<String> topicList, Set<Person> users) {
         this.repoId = repoId;
+        this.name = name;
         this.stargazersCount = stargazersCount;
         this.forkCount = forkCount;
         this.recentupdateTime = recentupdateTime;
@@ -29,6 +31,14 @@ public class GithubRepository {
         this.cloneUrl = cloneUrl;
         this.topicList = topicList;
         this.users = users;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public GithubRepository(){}

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class GithubRepositoryController {
     @Autowired
     private GithubRepoService githubRepoService;
@@ -50,8 +51,17 @@ public class GithubRepositoryController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.of(Optional.of(repositories));
     }
-    @GetMapping("/getReposWithTopics")
-    public  List<GithubRepository> getReposWithTopics(@RequestBody APIResponse apiResponse) throws IOException {
-        return githubRepoService.getReposBasedonTopics(apiResponse);
+    @GetMapping("/getReposWithTopics/{sortBy}/{topics}")
+    public List<GithubRepository> getReposWithTopics(@PathVariable String sortBy,@PathVariable List<String>topics) throws IOException {
+        Map<String,Object> map = new LinkedHashMap<>();
+        try {
+            List<GithubRepository> githubRepositories = githubRepoService.getReposBasedonTopics(sortBy,topics);
+            return githubRepositories;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+
+        }
     }
 }

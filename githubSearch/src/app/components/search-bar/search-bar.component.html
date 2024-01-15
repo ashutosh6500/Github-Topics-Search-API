@@ -9,14 +9,14 @@
   <div class="search-bar">
     <form class="example" style="max-width:300px">
       <input type="text" placeholder="Search.. java,python," name="search2">
-      <button type="submit"><i class="fa fa-search"></i></button>
+      <button  type="submit"><i class="fa fa-search"></i></button>
     
     </form>    
     <br>
     <br>
     <div class="dropdown">
-      <label for="option-names">Sort By </label> 
-      <select [(ngModel)]="sortBy" name="option-names" id="option-names" class="dropdown"> 
+      <label for="option-names">Sort By : </label> 
+      <select  [(ngModel)]="sortBy" name="option-names" id="option-names" class="dropdown" > 
         <option value="stars">Most Stars</option> 
           <option value="forks">Most Forks</option> 
           <option value="time">Recently Updated</option> 

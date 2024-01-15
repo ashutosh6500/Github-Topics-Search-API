@@ -18,4 +18,15 @@ export class UserService {
     console.log("service response is ",response);
     return response;
   }
+  
+  //post
+  public getUser() :Observable<User[]>{
+    return this.http.get<User[]>(`${this.url}/getUsers`);
+    //return response;
+  }
+
+  //get
+  public checkUser(email : string,password : string):Observable<any>{
+    return this.http.get<any>(`${this.url}/checkUser/${email}/${password}`);
+  }
 }

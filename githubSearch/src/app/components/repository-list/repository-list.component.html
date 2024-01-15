@@ -1,3 +1,63 @@
-<app-repository-details></app-repository-details>
-<app-repository-details></app-repository-details>
-<app-repository-details></app-repository-details>
+<h2 style="display: inline; margin-left: auto; margin-right: auto;">Returned {{repoList.length}} results!</h2>
+<div class="container">
+    <div *ngFor="let repo of repoList">
+            
+    <div class="container-fluid">
+        <div>
+            
+        <div class="img">
+            <img src="../assets/images/github-logo.png" height="100" width="300">
+        </div>
+        
+    </div>
+    
+<div class="repository-container">
+    
+        <div class="icons1">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDnxIR-c2CozoGZADhGaVpE2Lhq4Wzgf6KvkCxqLoqMmtON5msoTzc4zK5KHbGMq8NjIM&usqp=CAU" width="15px" height="20px">
+            <p>{{repo.forkCount}}</p>
+        </div>
+        <div class="icons2">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKzGMWWOavj2X1vKtckhmxbaDKQ2gplxLQMGpaQwDU-gp8nw5Y3zvTJ_xUtD-yPxM5RCk&usqp=CAU" width="15px" height="20px">
+            <p >{{repo.stargazersCount}}</p>
+        </div>
+    
+    <h1>{{repo.name.substring(1,repo.name.length-1)}}</h1>
+    <hr class="sepLine">
+    <div class="repository-description">
+      <p>{{repo.description.substring(1,repo.description.length-1)}}</p>
+      <h5>
+        Last Updated: {{repo.recentupdateTime.substring(1,repo.recentupdateTime.length-1)}}
+      </h5>
+    </div>
+    <hr class="sepLine">
+    <label for="clipboard-example-textarea">Clone</label>
+    <textarea id="clipboard-example-textarea" cols="30" rows="5" style="display: inline;" >{{repo.cloneUrl.substring(1,repo.cloneUrl.length-1)}}</textarea>
+    <span><button [cdkCopyToClipboard]="repo.cloneUrl.substring(1,repo.cloneUrl.length-1)" class="btn-primary">Copy</button></span>
+    <hr class="sepLine">
+    <div class="repository-topics">
+      <div>
+        
+        <div *ngFor="let topic of repo.topicList" style="display:inline-block;">
+            <button class="btn btn-default">{{topic.substring(1,topic.length-1)}}</button> 
+        </div>
+    </div>
+    </div>
+    <hr class="sepLine">
+  <button class="btn-primary">
+    <a class="link" href="{{repo.projectUrl.substring(1,repo.projectUrl.length-1)}} ">
+        Project Link
+    </a>
+  
+  </button>
+  </div>
+  
+<br>
+<br>
+<hr class="sepLine1">
+        
+    </div>
+    </div>
+<br>
+</div>
+
