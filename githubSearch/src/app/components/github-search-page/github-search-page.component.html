@@ -28,18 +28,14 @@
    
   </div>
   <h1 class="nocontent">
-    <div *ngIf="false">
+    <div *ngIf="noContent">
         Its Nothing Here!
         Try Searching with Some Topics!
     </div>
   </h1>
-  <div class="container" *ngIf="true">
+  <div class="container" *ngIf="!noContent">
     <app-repository-list [repoInput]="repoInput"></app-repository-list>
-    <mat-paginator [length]="100"
-              [pageSize]="4"
-              [pageSizeOptions]="[5, 10, 25, 100]"
-              aria-label="Select page">
-</mat-paginator>
+  
   </div>
 </body>
 </html>

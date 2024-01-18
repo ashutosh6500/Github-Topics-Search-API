@@ -26,23 +26,28 @@ public class UserService {
     }
 
     public ResponseEntity<?> checkUser(String email,String password){
-        Map<String,Object> response = new LinkedHashMap<>();
+        Map<String,String> mp  = new LinkedHashMap<>();
         for(Person p : userRepository.findAll()){
             if(p.getUserId().equals(email)){
                 if(p.getPassword().equals(password)){
-                    response.put("status",1);
-                    response.put("msg","welcome");
-                    return new ResponseEntity<>(response, HttpStatus.OK);
+                    mp.put("msg","Welcome");
+                    return new ResponseEntity<>(mp, HttpStatus.ACCEPTED);
                 }
                 //Correct Email but wrong password
-                response.put("status",0);
-                response.put("msg","Wrong Password!");
-                return new ResponseEntity<>(response, HttpStatus.OK);
+                mp.put("msg","Wrong Password");
+                return new ResponseEntity<>(mp, HttpStatus.BAD_REQUEST);
             }
         }
-        response.put("status",1);
-        response.put("msg","No User With Given Mail Id!");
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        mp.put("status","No User");
+        return new ResponseEntity<>(mp, HttpStatus.NOT_FOUND);
     }
+    public void deleteUser(String userId){
+        for(var user : userRepository.findAll()){
+            if(user.getUserId().equals(userId)){
+                userRepository.delete(user);
+                break;
+            }
+        }
 
+    }
 }

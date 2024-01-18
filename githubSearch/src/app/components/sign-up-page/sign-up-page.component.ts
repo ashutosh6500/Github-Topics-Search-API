@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GithubRepository } from 'src/app/entities/GithubRepo';
 import { User } from 'src/app/entities/User';
+import { GlobalsService } from 'src/app/services/globals.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,14 +12,21 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./sign-up-page.component.scss']
 })
 export class SignUpPageComponent {
-  
+
+change() {
+ this.error = "";
+  console.log("here");
+}
+  expression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
   userId : string="";
   password : string="";
   repos : GithubRepository[] = [];
   user : any;
   message :any;
   emptyPassword : boolean= false;
-  
+  showError : boolean = false;
+  error :string ="";
   validateForm(){
     console.log("called");
 
@@ -31,8 +39,8 @@ export class SignUpPageComponent {
     }
     return true;
   }
-  constructor(private service:UserService,private router : Router){
-
+  constructor(private service:UserService,private router : Router,private globals : GlobalsService){
+    
   }
   public getUsers() : void{
     this.service.getUser().subscribe(
@@ -44,6 +52,10 @@ export class SignUpPageComponent {
   }
   public register(){
   //add code for checking password constraints
+  if(this.expression.test(this.userId) == false){
+    alert("Enter Valid Email Id");
+    return;
+  }
   if(this.password == "")
   {
     alert("Password can't be empty!")
@@ -54,15 +66,31 @@ export class SignUpPageComponent {
     alert("UserId can't be empty!")
     return;
   }
+  
   //add logic for reading response Entiry coming from backend part!
-    let response = this.service.saveUser(new User(this.userId,this.password,this.repos));
-    console.log("response is ",response);
-    
-    let res = response.subscribe((data)=> this.message=data);
-    console.log("msg is",this.message);
-
+  this.service.saveUser(new User(this.userId,this.password,this.repos)).subscribe((user1) => {
+    console.log("saved user is",user1);
     //On successfull sign up,navigate to login:
-    //this.router.navigate(['/']);
+    this.globals.setLogin(true);
+    this.globals.setLogout(false);
+    this.globals.setRegister(false);
+    alert("Signup Successfull!");
+    this.router.navigate(['/']);
+  },
+  error => {
+  
+    //conflict case
+    if(error.status === 409){
+      this.error = "Failed ! User with this Email already exist!";
+      this.showError = true;
+       setTimeout(this.change, 5000);
+
+    }
+    
+    return;
+  }
+  );
+
   }
   ngOnInit(){
 

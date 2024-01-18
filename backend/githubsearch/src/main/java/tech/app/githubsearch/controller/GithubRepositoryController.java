@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import tech.app.githubsearch.helper.APIResponse;
 import tech.app.githubsearch.models.GithubRepository;
 import tech.app.githubsearch.models.Person;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class GithubRepositoryController {
     @Autowired
     private GithubRepoService githubRepoService;
@@ -22,45 +23,66 @@ public class GithubRepositoryController {
     private GithubRepoRepository githubRepoRepository;
     @Autowired
     private UserRepository userRepository;
+    @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping("/addrepo")
     public ResponseEntity<?> addRepoForUser(@RequestBody GithubRepository g){
-        Map<String,Object> map = new LinkedHashMap<>();
-        for(Person p :userRepository.findAll()){
-            if(p.getUserId().equals(g.getUsers().iterator().next().getUserId())){
-                //traversing in repos for this person
-                for(GithubRepository repo : p.getRepos()){
-                    if(repo.getRepoId().equals(g.getRepoId())){
-                        //repo is already there
-                        map.put("status",0);
-                        map.put("msg","This Repository is already saved!");
-                        return new ResponseEntity<>(map,HttpStatus.OK);
+        Map<String,String>mp  = new LinkedHashMap<>();
+        try {
+            for (Person p : userRepository.findAll()) {
+                if (p.getUserId().equals(g.getUsers().iterator().next().getUserId())) {
+                    //traversing in repos for this person
+                    for (GithubRepository repo : p.getRepos()) {
+                        if (repo.getRepoId().equals(g.getRepoId())) {
+                            //repo is already there
+                            mp.put("msg","This Repository is already saved!");
+                            return new ResponseEntity<>(mp, HttpStatus.CONFLICT);
+                        }
                     }
                 }
             }
+            githubRepoRepository.save(g);
+            mp.put("msg","Repository Added Successfully!");
+            return ResponseEntity.ok(mp);
         }
-        githubRepoRepository.save(g);
-        map.put("msg","Added Successfully!");
-        map.put("status",1);
-        return new ResponseEntity<>(map,HttpStatus.CREATED);
+        catch (Exception e){
+            throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"Could Not save Repo",e);
+        }
     }
 
     @GetMapping("/getRepos/{userId}")
-    public ResponseEntity<Set<GithubRepository>> addRepoForUser(@PathVariable String userId){
-        Set<GithubRepository> repositories = githubRepoService.getReposofUser(userId);
-        if(repositories.size() == 0)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        return ResponseEntity.of(Optional.of(repositories));
+    @ResponseStatus(value = HttpStatus.OK)
+    public ResponseEntity<?> addRepoForUser(@PathVariable String userId){
+        try {
+            Set<GithubRepository> repositories = githubRepoService.getReposofUser(userId);
+            return new ResponseEntity<>(repositories,HttpStatus.OK);
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Could not get repo",e);
+        }
     }
     @GetMapping("/getReposWithTopics/{sortBy}/{topics}")
+    @ResponseStatus(value = HttpStatus.OK)
     public List<GithubRepository> getReposWithTopics(@PathVariable String sortBy,@PathVariable List<String>topics) throws IOException {
-        Map<String,Object> map = new LinkedHashMap<>();
         try {
             List<GithubRepository> githubRepositories = githubRepoService.getReposBasedonTopics(sortBy,topics);
             return githubRepositories;
         }
         catch (Exception e) {
-            e.printStackTrace();
-            return new ArrayList<>();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Error Fetching Repos",e);
+
+        }
+    }
+    @DeleteMapping("/deleteRepo/{userId}/{repoId}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public ResponseEntity<?> deleteRepo(@PathVariable String userId,@PathVariable String repoId){
+        Map<String,String> mp = new LinkedHashMap<>();
+        try {
+            githubRepoService.deleteRepo(userId,repoId);
+            mp.put("msg","Successfully deleted Repo");
+            return new ResponseEntity<>(mp,HttpStatus.OK);
+        }
+        catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"error Occured while Deleting",e);
 
         }
     }

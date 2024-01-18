@@ -14,7 +14,7 @@ export class UserService {
   //post
   public saveUser(user : User) : Observable<User>{
     console.log("user is" ,user);
-    let response = this.http.post<User>(`${this.url}/api/saveUser`,user);
+    let response = this.http.post<User>(`${this.url}/saveUser`,user);
     console.log("service response is ",response);
     return response;
   }

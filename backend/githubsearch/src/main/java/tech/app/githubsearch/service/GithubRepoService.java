@@ -129,4 +129,16 @@ public class GithubRepoService {
 
         return repos;
     }
+    public void deleteRepo(String userId,String repoId){
+        for(var user : userRepository.findAll()){
+            if(user.getUserId().equals(userId)){
+                for(var repo : user.getRepos()){
+                    if(repo.getRepoId().equals(repoId)){
+                        user.getRepos().remove(repo);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }

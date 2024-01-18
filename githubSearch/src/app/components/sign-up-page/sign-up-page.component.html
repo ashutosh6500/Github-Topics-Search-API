@@ -10,8 +10,10 @@
             <input type="password" [(ngModel)]="password" name="email" required />
             <label>Password</label>
         </div>
-        <input class="L_btn" type="submit" value="Register" (click)="getUsers()" />
-        
+        <input class="L_btn" type="submit" value="Register" (click)="register()" />
+        <p *ngIf="showError">
+            {{error}}
+        </p>
     </form >
     Or Sign Up With
     <br>

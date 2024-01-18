@@ -10,10 +10,10 @@ import { RepositoryService } from 'src/app/services/repository.service';
 })
 export class GithubSearchPageComponent {
   constructor(private repoService : RepositoryService){
-    this.noContent =true;
   }
   ngOnInit(){
-    
+    this.noContent =true;
+
   
   }
   sortBy : string = "";
@@ -23,27 +23,10 @@ export class GithubSearchPageComponent {
   githubRepositories : any= [];
   
   public onClick() : void{
+    this.noContent = false;
     this.repoInput.sortBy = this.sortBy;
     this.repoInput.topicList = this.topicList;
     this.repoService.emitEventToRepoList(this.repoInput);
-    //sending sortBy and Topic list to github repo list component
-    // this.repoService.sortBy = this.sortBy;
-    // this.repoService.topics = this.topicList;
-    // this.repoService.eventEmitter1.emit(this.sortBy);
-    // this.repoService.eventEmitter2.emit(this.topicList);
-    
-   
 
-    
-    // this.repoService.getReposForUser("mail").subscribe(
-    //   (response : GithubRepository[]) => {
-    //     this.githubRepositories = response;
-    //     console.log("user are",this.githubRepositories);
-    //   }
-    // );
   }
-
-  
-
-
 }

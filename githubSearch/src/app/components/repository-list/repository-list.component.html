@@ -1,6 +1,7 @@
-<h2 style="display: inline; margin-left: auto; margin-right: auto;">Returned {{repoList.length}} results!</h2>
 <div class="container">
-    <div *ngFor="let repo of repoList">
+  <h2 style="display: inline; margin-left: auto; margin-right: auto;">Returned {{repoList.length}} results!</h2>
+
+    <div *ngFor="let repo of repoList | paginate: {itemsPerPage:5,currentPage:page,totalItems:totalLength}">
             
     <div class="container-fluid">
         <div>
@@ -59,5 +60,8 @@
     </div>
     </div>
 <br>
+<pagination-controls (pageChange)="page = $event">
+
+</pagination-controls>
 </div>
 

@@ -2,15 +2,18 @@
     <form>
         <h1>Login </h1>
         <div class="input">
-            <input type="text" required />
+            <input [(ngModel)]="userId" type="email" name="email" />
             <label>Email</label>
         </div>
         <div class="input box">
-            <input type="password" required />
+            <input [(ngModel)]="password" type="password"  name="password" />
             <label>Password</label>
             <div class="forgot"><a [routerLink]="['/forgotpassword']"><h3>Forgot Password?</h3></a></div>
         </div>
         <input class="L_btn" type="submit" value="Login" (click)="login()" />
+        <p *ngIf="showError">
+            {{error}}
+        </p>
     </form >
     <div class="div">
         <div class="line"></div>

@@ -13,11 +13,13 @@ export class RepositoryListComponent {
   repoList : GithubRepository[] = [];
   clone = "git clone";
   sortBy : string = "";
+  //pagination details
+  totalLength : any;
+  page : number = 1;
+
   topics : string[] = [];
   @Input() repoInput  = new RepoInput("",[]);
   constructor(private repoService : RepositoryService){
-    //this.sortBy = repoService.sortBy;
-    //this.topics = repoService.topics;
     console.log(this.sortBy,this.topics);
   }
   ngOnInit() {
@@ -27,10 +29,10 @@ export class RepositoryListComponent {
       this.topics = data.topicList;
       console.log(this.sortBy,this.topics);
       if((this.sortBy.length !=0) && (this.topics.length != 0)){
-        console.log("here");
       this.repoService.getReposFromTopics(this.sortBy,this.topics).subscribe(
         (response : GithubRepository[]) => {
           this.repoList = response;
+          this.totalLength = this.repoList.length;
           console.log("repos are ",this.repoList);
         }
       );

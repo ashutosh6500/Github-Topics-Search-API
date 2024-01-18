@@ -22,9 +22,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { Globals } from './globals';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -54,9 +54,10 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     ClipboardModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgxPaginationModule
   ],
-  providers: [UserService,RepositoryService,Globals],
+  providers: [UserService,RepositoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
